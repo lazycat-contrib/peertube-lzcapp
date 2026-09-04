@@ -1,0 +1,54 @@
+params:
+  - id: admin_email
+    type: string
+    name: Administrator Email
+    description: Email address for the initial PeerTube root administrator
+    optional: false
+
+  - id: admin_password
+    type: secret
+    name: Administrator Password
+    description: Initial password for the PeerTube root account; changing this value after first installation does not reset an existing account
+    default_value: "$random(len=24)"
+    optional: false
+
+  - id: use_document_storage
+    type: bool
+    name: Use Document Storage
+    description: Store large video and caption files in a selected LazyCat user's private documents; internal application data remains in application storage
+    default_value: "false"
+    optional: true
+
+  - id: storage_owner
+    type: lzc_uid
+    name: Storage Owner
+    description: LazyCat user that owns the PeerTube document-storage directory; select a user when document storage is enabled
+    optional: true
+
+locales:
+  zh:
+    admin_email:
+      name: 管理员邮箱
+      description: PeerTube 初始 root 管理员的邮箱地址
+    admin_password:
+      name: 管理员密码
+      description: PeerTube root 账号的初始密码；首次安装后修改此参数不会重置已有账号密码
+    use_document_storage:
+      name: 使用文稿存储
+      description: 将大型视频和字幕文件保存到所选用户的私有文稿目录；应用内部数据仍保存在应用目录
+    storage_owner:
+      name: 存储所属用户
+      description: 文稿存储目录所属的 LazyCat 用户；启用文稿存储时请选择用户
+  en:
+    admin_email:
+      name: Administrator Email
+      description: Email address for the initial PeerTube root administrator
+    admin_password:
+      name: Administrator Password
+      description: Initial password for the PeerTube root account; changing this value after first installation does not reset an existing account
+    use_document_storage:
+      name: Use Document Storage
+      description: Store large video and caption files in a selected user's private documents while keeping internal data in application storage
+    storage_owner:
+      name: Storage Owner
+      description: LazyCat user that owns the document-storage directory; select a user when document storage is enabled

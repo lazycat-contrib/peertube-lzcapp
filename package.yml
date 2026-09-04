@@ -1,0 +1,19 @@
+package: community.lazycat.app.peertube
+version: 8.2.4
+name: PeerTube
+description: ActivityPub-federated video streaming platform using P2P directly in your web browser
+min_os_version: 1.5.0
+homepage: https://github.com/Chocobozzz/PeerTube
+author: Chocobozzz
+license: AGPL-3.0-or-later
+permissions:
+  required:
+    - net.internet
+    - document.private
+locales:
+  zh:
+    name: PeerTube
+    description: 使用 ActivityPub 联邦协议和浏览器 P2P 技术的视频流媒体平台
+  en:
+    name: PeerTube
+    description: ActivityPub-federated video streaming platform using P2P directly in your web browser

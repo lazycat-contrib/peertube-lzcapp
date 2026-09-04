@@ -1,0 +1,94 @@
+application:
+  subdomain: peertube
+  multi_instance: false
+  upstreams:
+    - location: /
+      backend: http://peertube:9000/
+  public_path:
+    - /
+  ingress:
+    - protocol: tcp
+      publish_port: 1935
+      service: peertube
+      port: 1935
+  injects:
+    - id: peertube-login
+      on: browser
+      when:
+        - /login
+      do:
+        - src: builtin://simple-inject-password
+          params:
+            user: root
+            password: "{{ .U.admin_password }}"
+    - id: open-save-chooser
+      on: browser
+      when:
+        - /*
+      do:
+        - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
+
+services:
+  peertube:
+    # upstream: docker.io/chocobozzz/peertube:v8.2.4
+    image: docker.1ms.run/chocobozzz/peertube@sha256:0eea3cc0da1a1673344b82825bf12228ddb6d1cc7ccb2b6643bcdebfe14e9e61
+    environment:
+      - PEERTUBE_DB_USERNAME=peertube
+      - PEERTUBE_DB_PASSWORD={{ stable_secret "postgres_password" }}
+      - PEERTUBE_DB_SSL=false
+      - PEERTUBE_DB_HOSTNAME=postgres
+      - PEERTUBE_REDIS_HOSTNAME=redis
+      - PEERTUBE_WEBSERVER_HOSTNAME={{ .S.AppDomain }}
+      - PEERTUBE_WEBSERVER_PORT=443
+      - PEERTUBE_WEBSERVER_HTTPS=true
+      - 'PEERTUBE_TRUST_PROXY=["loopback","linklocal","uniquelocal"]'
+      - PEERTUBE_SECRET={{ stable_secret "peertube_secret" }}
+      - PEERTUBE_SMTP_HOSTNAME=postfix
+      - PEERTUBE_SMTP_PORT=25
+      - PEERTUBE_SMTP_FROM=noreply@{{ .S.AppDomain }}
+      - PEERTUBE_SMTP_TLS=false
+      - PEERTUBE_SMTP_DISABLE_STARTTLS=false
+      - {{ printf "PEERTUBE_ADMIN_EMAIL=%s" .U.admin_email | quote }}
+      - {{ printf "PT_INITIAL_ROOT_PASSWORD=%s" .U.admin_password | quote }}
+    binds:
+      - /lzcapp/var/peertube/config:/config
+      - /lzcapp/var/peertube/data:/data
+{{ if .U.use_document_storage }}
+      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/web-videos:/data/web-videos
+      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/streaming-playlists:/data/streaming-playlists
+      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/original-video-files:/data/original-video-files
+      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/captions:/data/captions
+{{ end }}
+    depends_on:
+      - postgres
+      - redis
+      - postfix
+
+  postgres:
+    # upstream: docker.io/library/postgres:17-alpine
+    image: docker.1ms.run/library/postgres@sha256:7456ef82e5f5bc43d997f4781bbd7c0d6389bff397564649a356e206ba473aee
+    environment:
+      - POSTGRES_USER=peertube
+      - POSTGRES_PASSWORD={{ stable_secret "postgres_password" }}
+      - POSTGRES_DB=peertube
+    binds:
+      - /lzcapp/var/postgres:/var/lib/postgresql/data
+
+  redis:
+    # upstream: docker.io/library/redis:8-alpine
+    image: docker.1ms.run/library/redis@sha256:9c3ecc609a8087c0f11c494fefaf37a8f7bf9a967631d4a0da8967a9810be354
+    binds:
+      - /lzcapp/var/redis:/data
+
+  postfix:
+    # upstream: docker.io/mwader/postfix-relay:latest
+    image: docker.1ms.run/mwader/postfix-relay@sha256:98153d161defb1e84905eb4315310a22c5c4993f07aa08122be986d5a7365862
+    environment:
+      - POSTFIX_myhostname={{ .S.AppDomain }}
+      - OPENDKIM_DOMAINS={{ .S.AppDomain }}=peertube
+      - OPENDKIM_RequireSafeKeys=no
+    binds:
+      - /lzcapp/var/postfix/opendkim-keys:/etc/opendkim/keys
+
+usage: |
+  Open PeerTube and sign in with the root account. The administrator password is configured during installation. RTMP live streaming is exposed on TCP port 1935. If document storage is enabled, select a storage owner before deploying.
