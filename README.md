@@ -8,7 +8,7 @@ LazyCat LPK v2 packaging for [PeerTube](https://github.com/Chocobozzz/PeerTube),
 - PostgreSQL 17, Redis 8, and Postfix Relay run as internal services.
 - RTMP live streaming is exposed on TCP port 1935.
 - This is a single-instance application.
-- Docker Hub images use the `docker.1ms.run` mirror and are pinned to verified linux/amd64 digests.
+- Docker Hub images use explicit tags through the `docker.1ms.run` mirror. Postfix Relay publishes only `latest`; the other services use fixed version tags.
 
 ## Storage
 

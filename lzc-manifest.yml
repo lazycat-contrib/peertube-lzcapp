@@ -31,7 +31,7 @@ application:
 services:
   peertube:
     # upstream: docker.io/chocobozzz/peertube:v8.2.4
-    image: docker.1ms.run/chocobozzz/peertube@sha256:0eea3cc0da1a1673344b82825bf12228ddb6d1cc7ccb2b6643bcdebfe14e9e61
+    image: docker.1ms.run/chocobozzz/peertube:v8.2.4
     environment:
       - PEERTUBE_DB_USERNAME=peertube
       - PEERTUBE_DB_PASSWORD={{ stable_secret "postgres_password" }}
@@ -66,7 +66,7 @@ services:
 
   postgres:
     # upstream: docker.io/library/postgres:17-alpine
-    image: docker.1ms.run/library/postgres@sha256:7456ef82e5f5bc43d997f4781bbd7c0d6389bff397564649a356e206ba473aee
+    image: docker.1ms.run/library/postgres:17.11-alpine
     environment:
       - POSTGRES_USER=peertube
       - POSTGRES_PASSWORD={{ stable_secret "postgres_password" }}
@@ -76,13 +76,13 @@ services:
 
   redis:
     # upstream: docker.io/library/redis:8-alpine
-    image: docker.1ms.run/library/redis@sha256:9c3ecc609a8087c0f11c494fefaf37a8f7bf9a967631d4a0da8967a9810be354
+    image: docker.1ms.run/library/redis:8.10.1-alpine
     binds:
       - /lzcapp/var/redis:/data
 
   postfix:
     # upstream: docker.io/mwader/postfix-relay:latest
-    image: docker.1ms.run/mwader/postfix-relay@sha256:98153d161defb1e84905eb4315310a22c5c4993f07aa08122be986d5a7365862
+    image: docker.1ms.run/mwader/postfix-relay:latest
     environment:
       - POSTFIX_myhostname={{ .S.AppDomain }}
       - OPENDKIM_DOMAINS={{ .S.AppDomain }}=peertube
