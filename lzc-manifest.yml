@@ -53,7 +53,7 @@ services:
     binds:
       - /lzcapp/var/peertube/config:/config
       - /lzcapp/var/peertube/data:/data
-{{ if .U.use_document_storage }}
+{{ if and .U.use_document_storage .U.storage_owner }}
       - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/web-videos:/data/web-videos
       - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/streaming-playlists:/data/streaming-playlists
       - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/original-video-files:/data/original-video-files
@@ -91,4 +91,4 @@ services:
       - /lzcapp/var/postfix/opendkim-keys:/etc/opendkim/keys
 
 usage: |
-  Open PeerTube and sign in with the root account. The administrator password is configured during installation. RTMP live streaming is exposed on TCP port 1935. If document storage is enabled, select a storage owner before deploying.
+  Open PeerTube and sign in with the root account. The administrator password is configured during installation. RTMP live streaming is exposed on TCP port 1935. If document storage is enabled, select a storage owner before deploying. Changing the storage option later does not migrate existing files.

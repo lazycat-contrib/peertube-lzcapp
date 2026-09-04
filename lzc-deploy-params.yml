@@ -15,7 +15,7 @@ params:
   - id: use_document_storage
     type: bool
     name: Use Document Storage
-    description: Store large video and caption files in a selected LazyCat user's private documents; internal application data remains in application storage
+    description: Store large video and caption files in a selected LazyCat user's private documents; internal data remains in application storage and changing this option does not migrate existing files
     default_value: "false"
     optional: true
 
@@ -35,7 +35,7 @@ locales:
       description: PeerTube root 账号的初始密码；首次安装后修改此参数不会重置已有账号密码
     use_document_storage:
       name: 使用文稿存储
-      description: 将大型视频和字幕文件保存到所选用户的私有文稿目录；应用内部数据仍保存在应用目录
+      description: 将大型视频和字幕文件保存到所选用户的私有文稿目录；内部数据仍保存在应用目录，切换此选项不会自动迁移已有文件
     storage_owner:
       name: 存储所属用户
       description: 文稿存储目录所属的 LazyCat 用户；启用文稿存储时请选择用户
@@ -48,7 +48,7 @@ locales:
       description: Initial password for the PeerTube root account; changing this value after first installation does not reset an existing account
     use_document_storage:
       name: Use Document Storage
-      description: Store large video and caption files in a selected user's private documents while keeping internal data in application storage
+      description: Store large video and caption files in a selected user's private documents while keeping internal data in application storage; changing this option does not migrate existing files
     storage_owner:
       name: Storage Owner
       description: LazyCat user that owns the document-storage directory; select a user when document storage is enabled

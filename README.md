@@ -14,6 +14,8 @@ LazyCat LPK v2 packaging for [PeerTube](https://github.com/Chocobozzz/PeerTube),
 
 Internal data is stored under `/lzcapp/var`. The setup wizard optionally stores large video and caption directories under a selected LazyCat user's `/lzcapp/documents/<uid>/PeerTube` directory.
 
+Changing the storage option after deployment does not migrate existing files. Move the data explicitly before switching storage locations.
+
 ## Build
 
 ```sh
