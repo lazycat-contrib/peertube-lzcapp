@@ -48,8 +48,8 @@ services:
       - PEERTUBE_SMTP_FROM=noreply@{{ .S.AppDomain }}
       - PEERTUBE_SMTP_TLS=false
       - PEERTUBE_SMTP_DISABLE_STARTTLS=false
-      - {{ printf "PEERTUBE_ADMIN_EMAIL=%s" .U.admin_email | quote }}
-      - {{ printf "PT_INITIAL_ROOT_PASSWORD=%s" .U.admin_password | quote }}
+      - PEERTUBE_ADMIN_EMAIL={{ .U.admin_email }}
+      - PT_INITIAL_ROOT_PASSWORD={{ .U.admin_password }}
     binds:
       - /lzcapp/var/peertube/config:/config
       - /lzcapp/var/peertube/data:/data
