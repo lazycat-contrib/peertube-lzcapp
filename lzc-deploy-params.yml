@@ -12,17 +12,10 @@ params:
     default_value: "$random(len=24)"
     optional: false
 
-  - id: use_document_storage
-    type: bool
-    name: Use Document Storage
-    description: Store large video and caption files in a selected LazyCat user's private documents; internal data remains in application storage and changing this option does not migrate existing files
-    default_value: "false"
-    optional: true
-
-  - id: storage_owner
+  - id: document_storage_owner
     type: lzc_uid
-    name: Storage Owner
-    description: LazyCat user that owns the PeerTube document-storage directory; select a user when document storage is enabled
+    name: Optional Document Storage
+    description: Optionally select a LazyCat user to store large video and caption files in private documents; leave empty to use internal application storage, and note that changing this later does not migrate existing files
     optional: true
 
 locales:
@@ -33,12 +26,9 @@ locales:
     admin_password:
       name: 管理员密码
       description: PeerTube root 账号的初始密码；首次安装后修改此参数不会重置已有账号密码
-    use_document_storage:
-      name: 使用文稿存储
-      description: 将大型视频和字幕文件保存到所选用户的私有文稿目录；内部数据仍保存在应用目录，切换此选项不会自动迁移已有文件
-    storage_owner:
-      name: 存储所属用户
-      description: 文稿存储目录所属的 LazyCat 用户；启用文稿存储时请选择用户
+    document_storage_owner:
+      name: 可选文稿存储
+      description: 可选择一个 LazyCat 用户，将大型视频和字幕文件保存到其私有文稿；留空则使用应用内部存储，后续改变此项不会自动迁移已有文件
   en:
     admin_email:
       name: Administrator Email
@@ -46,9 +36,6 @@ locales:
     admin_password:
       name: Administrator Password
       description: Initial password for the PeerTube root account; changing this value after first installation does not reset an existing account
-    use_document_storage:
-      name: Use Document Storage
-      description: Store large video and caption files in a selected user's private documents while keeping internal data in application storage; changing this option does not migrate existing files
-    storage_owner:
-      name: Storage Owner
-      description: LazyCat user that owns the document-storage directory; select a user when document storage is enabled
+    document_storage_owner:
+      name: Optional Document Storage
+      description: Optionally select a LazyCat user for large video and caption files; leave empty for internal storage, and note that changing this later does not migrate existing files

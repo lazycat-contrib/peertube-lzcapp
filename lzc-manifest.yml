@@ -53,11 +53,11 @@ services:
     binds:
       - /lzcapp/var/peertube/config:/config
       - /lzcapp/var/peertube/data:/data
-{{ if and .U.use_document_storage .U.storage_owner }}
-      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/web-videos:/data/web-videos
-      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/streaming-playlists:/data/streaming-playlists
-      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/original-video-files:/data/original-video-files
-      - /lzcapp/documents/{{ .U.storage_owner }}/PeerTube/captions:/data/captions
+{{ with .U.document_storage_owner }}
+      - /lzcapp/documents/{{ . }}/PeerTube/web-videos:/data/web-videos
+      - /lzcapp/documents/{{ . }}/PeerTube/streaming-playlists:/data/streaming-playlists
+      - /lzcapp/documents/{{ . }}/PeerTube/original-video-files:/data/original-video-files
+      - /lzcapp/documents/{{ . }}/PeerTube/captions:/data/captions
 {{ end }}
     depends_on:
       - postgres
@@ -91,4 +91,4 @@ services:
       - /lzcapp/var/postfix/opendkim-keys:/etc/opendkim/keys
 
 usage: |
-  Open PeerTube and sign in with the root account. The administrator password is configured during installation. RTMP live streaming is exposed on TCP port 1935. If document storage is enabled, select a storage owner before deploying. Changing the storage option later does not migrate existing files.
+  Open PeerTube and sign in with the root account. The administrator password is configured during installation. RTMP live streaming is exposed on TCP port 1935. Selecting an optional document-storage owner enables document-backed video storage; leaving it empty uses internal storage. Changing the storage option later does not migrate existing files.

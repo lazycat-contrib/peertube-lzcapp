@@ -9,6 +9,8 @@ license: AGPL-3.0-or-later
 permissions:
   required:
     - net.internet
+    # Manifest permissions are static, so this is declared even when the
+    # optional document-storage owner is left empty.
     - document.private
 locales:
   zh:

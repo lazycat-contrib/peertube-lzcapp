@@ -37,4 +37,4 @@ stores:
     enabled: true
     skip_if_version_exists: true
     name: PeerTube
-    summary: ActivityPub-federated video streaming platform using browser P2P
+    summary: ActivityPub-federated video streaming platform using P2P directly in your web browser
