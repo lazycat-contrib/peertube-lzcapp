@@ -1,5 +1,5 @@
 package: community.lazycat.app.peertube
-version: 8.2.4
+version: 8.3.0
 name: PeerTube
 description: ActivityPub-federated video streaming platform using P2P directly in your web browser
 min_os_version: 1.5.0

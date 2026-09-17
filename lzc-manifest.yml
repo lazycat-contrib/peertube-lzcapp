@@ -27,11 +27,10 @@ application:
         - /*
       do:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
-
 services:
   peertube:
-    # upstream: docker.io/chocobozzz/peertube:v8.2.4
-    image: docker.1ms.run/chocobozzz/peertube:v8.2.4
+    # upstream: docker.io/chocobozzz/peertube:v8.3.0
+    image: docker.1ms.run/chocobozzz/peertube:v8.3.0
     environment:
       - PEERTUBE_DB_USERNAME=peertube
       - PEERTUBE_DB_PASSWORD={{ stable_secret "postgres_password" }}
@@ -63,7 +62,6 @@ services:
       - postgres
       - redis
       - postfix
-
   postgres:
     # upstream: docker.io/library/postgres:17-alpine
     image: docker.1ms.run/library/postgres:17.11-alpine
@@ -73,13 +71,11 @@ services:
       - POSTGRES_DB=peertube
     binds:
       - /lzcapp/var/postgres:/var/lib/postgresql/data
-
   redis:
     # upstream: docker.io/library/redis:8-alpine
     image: docker.1ms.run/library/redis:8.10.1-alpine
     binds:
       - /lzcapp/var/redis:/data
-
   postfix:
     # upstream: docker.io/mwader/postfix-relay:latest
     image: docker.1ms.run/mwader/postfix-relay:latest
@@ -89,6 +85,5 @@ services:
       - OPENDKIM_RequireSafeKeys=no
     binds:
       - /lzcapp/var/postfix/opendkim-keys:/etc/opendkim/keys
-
 usage: |
   Open PeerTube and sign in with the root account. The administrator password is configured during installation. RTMP live streaming is exposed on TCP port 1935. Selecting an optional document-storage owner enables document-backed video storage; leaving it empty uses internal storage. Changing the storage option later does not migrate existing files.
