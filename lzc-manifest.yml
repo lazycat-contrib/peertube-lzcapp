@@ -29,8 +29,8 @@ application:
         - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
 services:
   peertube:
-    # upstream: docker.io/chocobozzz/peertube:v8.3.0
-    image: docker.1ms.run/chocobozzz/peertube:v8.3.0
+    # upstream: docker.io/chocobozzz/peertube:v8.3.1
+    image: docker.1ms.run/chocobozzz/peertube:v8.3.1
     environment:
       - PEERTUBE_DB_USERNAME=peertube
       - PEERTUBE_DB_PASSWORD={{ stable_secret "postgres_password" }}
