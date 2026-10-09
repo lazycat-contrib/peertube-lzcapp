@@ -5,7 +5,7 @@ description: ActivityPub-federated video streaming platform using P2P directly i
 min_os_version: 1.5.0
 homepage: https://github.com/Chocobozzz/PeerTube
 author: Chocobozzz
-license: AGPL-3.0-or-later
+license: AGPL-3.0
 permissions:
   required:
     - net.internet
